@@ -10,16 +10,16 @@ import java.util.List;
 public class LogicsImpl implements Logics {
 
     private final int nButtons;
-    private List<Integer> values;
-    private List<Boolean> states;
+    private final List<Integer> values;
+    private final List<Boolean> states;
 
     /**
      * Constructor.
      *
      * @param size the size of the logics
      */
-    public LogicsImpl(final int nButtons) {
-        this.nButtons = nButtons;
+    public LogicsImpl(final int size) {
+        this.nButtons = size;
         values = new ArrayList<>(4);
         values.addAll(List.of(0, 0, 0, 0));
         states = new ArrayList<>(4);
@@ -81,8 +81,8 @@ public class LogicsImpl implements Logics {
     }
 
     private boolean timeToQuit() {
-        for (Boolean b : states) {
-            if (b == true) {
+        for (final Boolean b : states) {
+            if (b) {
                 return false;
             }
         }
