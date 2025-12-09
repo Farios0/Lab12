@@ -4,6 +4,12 @@ plugins {
     id("org.danilopianini.gradle-java-qa") version "1.159.0"
 }
 
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(21))
+    }
+}
+
 repositories {
     mavenCentral()
 }
