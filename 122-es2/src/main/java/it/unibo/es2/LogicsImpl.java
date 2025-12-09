@@ -3,23 +3,37 @@ package it.unibo.es2;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * one implementation of the interface.
+ */
 public class LogicsImpl implements Logics{
     private static final String DEF_STRING = " ";
     private static final String OTHER_STRING = "*";
     private final int size;
     private final List<String> cells;
     
+    /**
+     * Builds a new object based on the size.
+     * 
+     * @param size its size
+     */
     public LogicsImpl(int size) {
         this.size = size;
         cells = new ArrayList<>();
         initializeCells();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getCellText(int row, int col) {
         return cells.get(getCellIndex(row, col));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String hitCell(int row, int col) {
         final int index = getCellIndex(row, col);
@@ -32,11 +46,17 @@ public class LogicsImpl implements Logics{
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String hitCell(Pair<Integer, Integer> position) {
         return hitCell(position.x(), position.y());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean timeToQuit() {
         return rowControl() || colControl();
