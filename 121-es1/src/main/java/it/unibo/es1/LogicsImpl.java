@@ -1,5 +1,7 @@
 package it.unibo.es1;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -7,15 +9,21 @@ import java.util.List;
  */
 public class LogicsImpl implements Logics {
 
-    private static final String ERROR_MESSAGE = "Unimplemented method";
+    private final int nButtons;
+    private List<Integer> values;
+    private List<Boolean> states;
 
     /**
      * Constructor.
      *
      * @param size the size of the logics
      */
-    public LogicsImpl(final int size) {
-        throw new UnsupportedOperationException(ERROR_MESSAGE);
+    public LogicsImpl(final int nButtons) {
+        this.nButtons = nButtons;
+        values = new ArrayList<>(4);
+        values.addAll(List.of(0, 0, 0, 0));
+        states = new ArrayList<>(4);
+        states.addAll(List.of(true, true, true, true));
     }
 
     /**
@@ -23,7 +31,7 @@ public class LogicsImpl implements Logics {
      */
     @Override
     public int size() {
-        throw new UnsupportedOperationException(ERROR_MESSAGE);
+        return this.nButtons;
     }
 
     /**
@@ -31,7 +39,7 @@ public class LogicsImpl implements Logics {
      */
     @Override
     public List<Integer> values() {
-        throw new UnsupportedOperationException(ERROR_MESSAGE);
+        return Collections.unmodifiableList(this.values);
     }
 
     /**
@@ -39,7 +47,7 @@ public class LogicsImpl implements Logics {
      */
     @Override
     public List<Boolean> enabledStates() {
-        throw new UnsupportedOperationException(ERROR_MESSAGE);
+        return Collections.unmodifiableList(this.states);
     }
 
     /**
@@ -47,7 +55,13 @@ public class LogicsImpl implements Logics {
      */
     @Override
     public int hit(final int elem) {
-        throw new UnsupportedOperationException(ERROR_MESSAGE);
+        final int newValue = values.get(elem) + 1;
+        if (newValue <= nButtons) {
+            values.set(elem, newValue);
+            return newValue;
+        }
+        states.set(elem, false);
+        return newValue - 1;
     }
 
     /**
@@ -55,7 +69,7 @@ public class LogicsImpl implements Logics {
      */
     @Override
     public String result() {
-        throw new UnsupportedOperationException(ERROR_MESSAGE);
+        return values.toString();
     }
 
     /**
@@ -63,6 +77,15 @@ public class LogicsImpl implements Logics {
      */
     @Override
     public boolean toQuit() {
-        throw new UnsupportedOperationException(ERROR_MESSAGE);
+        return timeToQuit();
+    }
+
+    private boolean timeToQuit() {
+        for (Boolean b : states) {
+            if (b == true) {
+                return false;
+            }
+        }
+        return true;
     }
 }
