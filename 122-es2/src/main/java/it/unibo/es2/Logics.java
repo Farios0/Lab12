@@ -24,15 +24,16 @@ public interface Logics {
     String hitCell(int row, int col);
 
     /**
-     * this method checks what text symbol has the cell and return the other text you should change it with thanks to the position provided. 
+     * this method checks what text symbol has the cell and return the other text you should change it with,
+     * thanks to the position provided. 
      * 
      * @param position its position
      * @return the new text
      */
-    String hitCell (Pair<Integer, Integer> position);
+    String hitCell(Pair<Integer, Integer> position);
 
     /**
-     * this method check if the sysmbols complete a row or a column
+     * this method check if the sysmbols complete a row or a column.
      * 
      * @return true if it does, false otherwhise
      */

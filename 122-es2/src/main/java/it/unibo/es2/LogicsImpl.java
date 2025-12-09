@@ -1,23 +1,25 @@
 package it.unibo.es2;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * one implementation of the interface.
  */
-public class LogicsImpl implements Logics{
+public class LogicsImpl implements Logics, Serializable {
+    private static final long serialVersionUID = 1L;
     private static final String DEF_STRING = " ";
     private static final String OTHER_STRING = "*";
     private final int size;
     private final List<String> cells;
-    
+
     /**
      * Builds a new object based on the size.
      * 
      * @param size its size
      */
-    public LogicsImpl(int size) {
+    public LogicsImpl(final int size) {
         this.size = size;
         cells = new ArrayList<>();
         initializeCells();
@@ -27,7 +29,7 @@ public class LogicsImpl implements Logics{
      * {@inheritDoc}
      */
     @Override
-    public String getCellText(int row, int col) {
+    public String getCellText(final int row, final int col) {
         return cells.get(getCellIndex(row, col));
     }
 
@@ -35,7 +37,7 @@ public class LogicsImpl implements Logics{
      * {@inheritDoc}
      */
     @Override
-    public String hitCell(int row, int col) {
+    public String hitCell(final int row, final int col) {
         final int index = getCellIndex(row, col);
         if (!hasSymbol(index)) {
             cells.set(index, OTHER_STRING);
@@ -50,7 +52,7 @@ public class LogicsImpl implements Logics{
      * {@inheritDoc}
      */
     @Override
-    public String hitCell(Pair<Integer, Integer> position) {
+    public String hitCell(final Pair<Integer, Integer> position) {
         return hitCell(position.x(), position.y());
     }
 
@@ -66,14 +68,13 @@ public class LogicsImpl implements Logics{
         for (int i = 0; i < size * size + size; i++) {
                 cells.add(DEF_STRING);
         }
-        
     }
 
-    private int getCellIndex(int row, int col) {
+    private int getCellIndex(final int row, final int col) {
         return row * size + col;
     }
 
-    private boolean hasSymbol(int index) {
+    private boolean hasSymbol(final int index) {
         return "*".equals(cells.get(index));
     }
 
@@ -91,12 +92,11 @@ public class LogicsImpl implements Logics{
             if (basicControl(i, (size - 1) * size + size - 1, size)) {
                 return true;
             }
-        
         }
         return false;
     }
 
-    private boolean basicControl(int start, int limit, int gap) {
+    private boolean basicControl(final int start, final int limit, final int gap) {
         for (int i = start; i < limit; i += gap) {
             if (!hasSymbol(i)) {
                 return false; 
