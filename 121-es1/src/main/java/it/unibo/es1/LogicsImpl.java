@@ -56,12 +56,12 @@ public class LogicsImpl implements Logics {
     @Override
     public int hit(final int elem) {
         final int newValue = values.get(elem) + 1;
-        if (newValue <= nButtons) {
+        if (newValue < nButtons) {
             values.set(elem, newValue);
             return newValue;
         }
         states.set(elem, false);
-        return newValue - 1;
+        return newValue;
     }
 
     /**
