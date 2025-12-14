@@ -19,7 +19,7 @@ public final class GUI extends JFrame {
     private static final long serialVersionUID = 1L;
     //private final List<JButton> cells = new ArrayList<>();
     private final Map<Pair<Integer, Integer>, JButton> cells = new HashMap<>();
-    private final AlternativeLogics logic;
+    private final transient AlternativeLogics logic;
 
     /**
      * Constructor.
@@ -43,14 +43,15 @@ public final class GUI extends JFrame {
                 panel.add(button);
             }
         }
-        JButton forward = new JButton(">");
+        final JButton forward = new JButton(">");
         forward.addActionListener(e -> {
-                if (logic.timeToQuit()) {dispose();}
+                if (logic.timeToQuit()) {
+                    dispose();
+                }
                 logic.getTargets().stream().forEach(p -> cells.get(p).setText("*"));
             });
         canvas.add(forward, BorderLayout.SOUTH);
         pack();
-        
         this.setVisible(true);
     }
 }
